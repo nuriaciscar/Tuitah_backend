@@ -4,9 +4,10 @@ const morgan = require("morgan");
 const debug = require("debug")("tuits:server");
 const chalk = require("chalk");
 const cors = require("cors");
+const { notFoundError, generalError } = require("./middlewares/error");
+const tuitRoutes = require("./routes/tuitRoutes");
 
 const app = express();
-app.use(cors());
 
 const initializeServer = (port) => {
   new Promise((resolve, reject) => {
@@ -32,6 +33,10 @@ const initializeServer = (port) => {
 };
 
 app.use(morgan("dev"));
+app.use(cors());
 app.use(express.json());
+app.use("/tuits", tuitRoutes);
+app.use(notFoundError);
+app.use(generalError);
 
 module.exports = { initializeServer, app };

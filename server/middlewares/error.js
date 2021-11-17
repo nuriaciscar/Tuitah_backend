@@ -6,6 +6,7 @@ const notFoundError = (req, res) => {
   res.status(404).json({ error: "Endpoint not found..." });
 };
 
+// eslint-disable-next-line no-unused-vars
 const generalError = (error, req, res, next) => {
   debug(chalk.bgMagentaBright("An error has ocurred: ", error.message));
   if (error instanceof ValidationError) {
